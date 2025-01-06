@@ -5,6 +5,8 @@ const app = express();
 require('dotenv').config()
 const mongoose = require("mongoose")
 
+const Fruit = require("./models/fruits")
+
 mongoose.connect(process.env.MONGODB_URI)
 .then(()=>{console.log("Connected to DATABSE")})
 .catch(()=>{console.log("ERROR CONNECTING TO DB OMAR")})
