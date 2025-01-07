@@ -11,11 +11,6 @@ mongoose.connect(process.env.MONGODB_URI)
 .then(()=>{console.log("Connected to DATABSE")})
 .catch(()=>{console.log("ERROR CONNECTING TO DB OMAR")})
 
-app.get('/sara',async (req,res)=>{
-    let myStudent = "Adel"
-    let myTeacher = "Ruqaya"
-    res.render("homepage.ejs",{myStudent:myStudent, myTeacher:myTeacher})
-})
 
 
 app.get("/fruits", async(req,res)=>{
@@ -23,6 +18,13 @@ app.get("/fruits", async(req,res)=>{
     console.log(allFruits)
     res.render("all-fruits.ejs",{allFruits:allFruits})
 
+})
+
+app.get("/fruits/:id", async (req,res)=>{
+  console.log(req.params.id)
+  const foundFruit = await Fruit.findById(req.params.id)
+  console.log(foundFruit)
+  res.send("One FRUIT PAGE")
 })
 
 app.listen(3000, () => {

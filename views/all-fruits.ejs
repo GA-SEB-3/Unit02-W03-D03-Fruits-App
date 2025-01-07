@@ -10,7 +10,7 @@
 
     <ul>
         <% allFruits.forEach((oneFruit)=>{%>
-            <li><%=oneFruit.name%></li>
+            <li><a href="/fruits/<%= oneFruit._id%>"><%=oneFruit.name%></a></li>
         <%})%>
     </ul>
    
