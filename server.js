@@ -3,6 +3,9 @@ const express = require('express');
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride("_method")); // new
+app.use(morgan("dev")); //new
+
 
 
 require('dotenv').config()
@@ -47,6 +50,12 @@ app.get("/fruits/:id", async (req,res)=>{
   const foundFruit = await Fruit.findById(req.params.id)
   console.log(foundFruit)
   res.render("show.ejs",{foundFruit:foundFruit})
+})
+
+app.post("/fruits/delete/:id", async(req,res)=>{
+  console.log(req.params)
+  await Fruit.findByIdAndDelete(req.params.id)
+  res.redirect("/fruits")
 })
 
 
