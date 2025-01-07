@@ -1,6 +1,9 @@
 const express = require('express');
 
 const app = express();
+const methodOverride = require("method-override"); // new
+const morgan = require("morgan"); //new
+
 
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method")); // new
@@ -52,7 +55,7 @@ app.get("/fruits/:id", async (req,res)=>{
   res.render("show.ejs",{foundFruit:foundFruit})
 })
 
-app.post("/fruits/delete/:id", async(req,res)=>{
+app.delete("/fruits/delete/:id", async(req,res)=>{
   console.log(req.params)
   await Fruit.findByIdAndDelete(req.params.id)
   res.redirect("/fruits")
