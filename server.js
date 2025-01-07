@@ -55,12 +55,36 @@ app.get("/fruits/:id", async (req,res)=>{
   res.render("show.ejs",{foundFruit:foundFruit})
 })
 
-app.delete("/fruits/delete/:id", async(req,res)=>{
+app.delete("/fruits/:id", async(req,res)=>{
   console.log(req.params)
   await Fruit.findByIdAndDelete(req.params.id)
   res.redirect("/fruits")
 })
 
+
+app.get("/fruits/:id/edit", async (req,res)=>{
+  console.log(req.params)
+  const foundFruit = await Fruit.findById(req.params.id)
+
+
+  res.render("edit.ejs",{foundFruit})
+})
+
+app.put("/fruits/:id", async (req,res)=>{
+ if(req.body.isReadyToEat === "on"){
+  req.body.isReadyToEat = true;
+ }
+ else{
+  req.body.isReadyToEat = false;
+ }
+
+ await Fruit.findByIdAndUpdate(req.params.id,req.body)
+
+ res.redirect(`/fruits/${req.params.id}`)
+
+
+
+})
 
 
 app.listen(3000, () => {
