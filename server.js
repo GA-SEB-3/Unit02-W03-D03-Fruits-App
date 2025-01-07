@@ -49,16 +49,28 @@ app.post("/fruits",async(req,res)=>{
   })
 
 app.get("/fruits/:id", async (req,res)=>{
-  console.log(req.params.id)
-  const foundFruit = await Fruit.findById(req.params.id)
-  console.log(foundFruit)
-  res.render("show.ejs",{foundFruit:foundFruit})
+  try{
+    console.log(req.params.id)
+    const foundFruit = await Fruit.findById(req.params.id)
+    console.log(foundFruit)
+    res.render("show.ejs",{foundFruit:foundFruit})
+  }
+  catch(err){
+    res.render("error.ejs")
+  }
+
 })
 
 app.delete("/fruits/:id", async(req,res)=>{
-  console.log(req.params)
-  await Fruit.findByIdAndDelete(req.params.id)
-  res.redirect("/fruits")
+  try{
+    console.log(req.params)
+    await Fruit.findByIdAndDelete(req.params.id)
+    res.redirect("/fruits")
+  
+  }
+  catch(err){
+    res.render("error.ejs")
+  }
 })
 
 
